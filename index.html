@@ -10,7 +10,7 @@
 
   body {
     font-family: 'Comic Neue', cursive;
-    background: linear-gradient(#1a0b33 0%, #2d1b4e 40%, #0e3b2c 75%, #0a2e22 100%);
+    background: linear-gradient(#141026 0%, #1e1840 40%, #14283c 75%, #0f2030 100%);
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -54,7 +54,7 @@
     border-radius: 22px;
     background:
       radial-gradient(circle at 82% 14%, rgba(255,255,210,.9) 0 34px, rgba(255,255,210,.25) 44px, transparent 70px),
-      linear-gradient(#241245 0%, #35205e 55%, #14532d 80%, #0f4024 100%);
+      linear-gradient(#131028 0%, #241b45 50%, #26334d 80%, #1c2940 100%);
     box-shadow: 0 0 40px rgba(255,210,63,.25), inset 0 0 60px rgba(0,0,0,.4);
     overflow: hidden;
   }
@@ -67,20 +67,90 @@
     80% { transform: translate(6px,-3px); }
   }
 
-  .tree {
+  /* --- the old warehouse --- */
+  .warehouse {
     position: absolute;
-    bottom: 8%;
-    font-size: 62px;
-    filter: brightness(.6);
+    left: 0; right: 0; bottom: 13.5%;
+    height: 56%;
+    z-index: 0;
+  }
+  .warehouse svg { width: 100%; height: 100%; display: block; }
+
+  /* --- the dock --- */
+  .dock {
+    position: absolute;
+    left: 0; right: 0; bottom: 4.5%;
+    height: 10%;
+    background:
+      linear-gradient(rgba(0,0,0,.35), transparent 35%),
+      repeating-linear-gradient(90deg, #7a512c 0 54px, #6a4423 54px 58px);
+    border-top: 4px solid #8a5f36;
+    border-bottom: 4px solid #3c2712;
     z-index: 1;
   }
 
-  .ground {
+  .water {
     position: absolute;
     left: 0; right: 0; bottom: 0;
-    height: 12%;
-    background: linear-gradient(#1e6b3a, #123f23);
-    border-top: 3px solid #2e8b50;
+    height: 5%;
+    background: #12283c;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .water::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: -80px; right: 0;
+    background: repeating-linear-gradient(90deg, transparent 0 34px, rgba(140,200,255,.18) 34px 44px, transparent 44px 78px);
+    animation: waterDrift 5s linear infinite;
+  }
+  @keyframes waterDrift { to { transform: translateX(78px); } }
+
+  .piling {
+    position: absolute;
+    bottom: 2%;
+    width: 17px;
+    height: 26%;
+    background: linear-gradient(90deg, #402a14, #6a4728 45%, #33200e);
+    border-radius: 8px 8px 0 0;
+    box-shadow: inset 0 6px 0 #2a1a0a;
+    z-index: 2;
+  }
+
+  .prop {
+    position: absolute;
+    z-index: 2;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,.45));
+    line-height: 1;
+  }
+
+  .fog {
+    position: absolute;
+    height: 64px;
+    width: 360px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(215,228,240,.17), transparent);
+    filter: blur(7px);
+    z-index: 4;
+    pointer-events: none;
+    animation: fogDrift 30s ease-in-out infinite alternate;
+  }
+  @keyframes fogDrift {
+    from { transform: translateX(-6vw); }
+    to   { transform: translateX(11vw); }
+  }
+
+  .gull {
+    position: absolute;
+    top: 13%;
+    left: 0;
+    z-index: 0;
+    animation: gullFly 24s linear infinite;
+  }
+  @keyframes gullFly {
+    0%   { transform: translate(-8vw, 0); }
+    50%  { transform: translate(45vw, -26px); }
+    100% { transform: translate(98vw, 8px); }
   }
 
   .actor {
@@ -401,14 +471,76 @@
 
 <div class="banner">
   <h1>⚔️ MATT'S TURN ⚔️</h1>
-  <div class="sub">Circle of the Cryptid Druid &nbsp;•&nbsp; Wild Shape: SASQUATCH &nbsp;•&nbsp; Passive Yeet: 18</div>
+  <div class="sub">Circle of the Cryptid Druid &nbsp;•&nbsp; Wild Shape: SASQUATCH &nbsp;•&nbsp; Passive Yeet: 18 &nbsp;•&nbsp; Venue: THE OLD INNSMOUTH DOCKS</div>
 </div>
 
 <div class="scene" id="scene">
-  <span class="tree" style="left:2%">🌲</span>
-  <span class="tree" style="left:14%; font-size:48px">🌲</span>
-  <span class="tree" style="right:30%; font-size:44px">🌲</span>
-  <span class="tree" style="right:2%; font-size:56px">🌲</span>
+  <div class="gull">
+    <svg width="36" height="15" viewBox="0 0 36 15">
+      <path d="M2 10 Q10 2 18 10 Q26 2 34 10" stroke="#dfe6ee" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="warehouse">
+    <svg viewBox="0 0 1200 260" preserveAspectRatio="none" aria-label="old New England warehouse">
+      <defs>
+        <pattern id="clap" width="12" height="16" patternUnits="userSpaceOnUse">
+          <rect width="12" height="16" fill="#6e3a2e"/>
+          <line x1="0" y1="15" x2="12" y2="15" stroke="#552b21" stroke-width="2"/>
+        </pattern>
+      </defs>
+      <!-- roof -->
+      <polygon points="10,74 600,12 1190,74" fill="#39404e"/>
+      <rect x="6" y="70" width="1188" height="8" fill="#2a3038"/>
+      <!-- hoist beam + hook -->
+      <rect x="590" y="18" width="20" height="30" fill="#4a3018"/>
+      <line x1="600" y1="48" x2="600" y2="68" stroke="#22262e" stroke-width="3"/>
+      <path d="M600 68 q-7 8 2 13" stroke="#8a8f9a" stroke-width="3" fill="none"/>
+      <!-- clapboard body + granite foundation -->
+      <rect x="30" y="74" width="1140" height="186" fill="url(#clap)"/>
+      <rect x="30" y="74" width="14" height="186" fill="#c9b795"/>
+      <rect x="1156" y="74" width="14" height="186" fill="#c9b795"/>
+      <rect x="30" y="250" width="1140" height="10" fill="#4a4d54"/>
+      <!-- sign -->
+      <rect x="380" y="82" width="440" height="46" rx="6" fill="#26313f" stroke="#c9b795" stroke-width="3"/>
+      <text x="600" y="109" text-anchor="middle" font-family="Bangers, cursive" font-size="24" fill="#e8d8b0" letter-spacing="2">INNSMOUTH IMPORT &amp; EXPORT Co.</text>
+      <text x="600" y="123" text-anchor="middle" font-family="Comic Neue, cursive" font-size="11" fill="#9fb0c0">EST. 1846 — "YOU CATCH IT, WE CRATE IT"</text>
+      <!-- windows (two lit, night shift) -->
+      <g stroke="#c9b795" stroke-width="3">
+        <rect x="70"  y="145" width="78" height="58" fill="#1a2431"/>
+        <rect x="185" y="145" width="78" height="58" fill="#ffd070"/>
+        <rect x="300" y="145" width="78" height="58" fill="#1a2431"/>
+        <rect x="770" y="145" width="78" height="58" fill="#1a2431"/>
+        <rect x="885" y="145" width="78" height="58" fill="#ffd070"/>
+        <rect x="1000" y="145" width="78" height="58" fill="#1a2431"/>
+      </g>
+      <g stroke="#c9b795" stroke-width="2">
+        <path d="M109 145 V203 M70 174 H148"/>
+        <path d="M224 145 V203 M185 174 H263"/>
+        <path d="M339 145 V203 M300 174 H378"/>
+        <path d="M809 145 V203 M770 174 H848"/>
+        <path d="M924 145 V203 M885 174 H963"/>
+        <path d="M1039 145 V203 M1000 174 H1078"/>
+      </g>
+      <!-- big sliding door -->
+      <rect x="497" y="162" width="206" height="8" fill="#5a4430"/>
+      <rect x="505" y="170" width="190" height="90" fill="#4a3324" stroke="#2f2016" stroke-width="4"/>
+      <path d="M505 170 L695 260 M695 170 L505 260" stroke="#2f2016" stroke-width="6"/>
+    </svg>
+  </div>
+
+  <div class="piling" style="left:1%"></div>
+  <div class="piling" style="left:47%"></div>
+  <div class="piling" style="right:1%"></div>
+
+  <span class="prop" style="left:37%; bottom:13.8%; font-size:44px">📦</span>
+  <span class="prop" style="left:39%; bottom:20%; font-size:32px">📦</span>
+  <span class="prop" style="right:22%; bottom:13.8%; font-size:40px">🛢️</span>
+  <span class="prop" style="right:38%; bottom:13.5%; font-size:24px">🦞</span>
+  <span class="prop" style="left:1.5%; bottom:13.5%; font-size:38px">⚓</span>
+
+  <div class="fog" style="bottom:18%; left:4%"></div>
+  <div class="fog" style="bottom:27%; right:6%; animation-delay:-14s; animation-duration:38s"></div>
 
   <div class="actor" id="squatch">
     <div class="bubble" id="squatchBubble">RRAAAAGH!</div>
@@ -521,10 +653,11 @@
   <div class="actor" id="enemies">
     <div class="bubble" id="gobBubble">heh heh heh</div>
     <span class="goblin">👺</span><span class="goblin">👺</span><span class="goblin">👺</span>
-    <br><span class="tag">GOBLINS (SOON TO BE LOOT)</span>
+    <br><span class="tag">GOBLIN DOCKWORKERS (NON-UNION)</span>
   </div>
 
-  <div class="ground"></div>
+  <div class="dock"></div>
+  <div class="water"></div>
 </div>
 
 <div class="console">
@@ -587,7 +720,7 @@
   ];
   const FUMBLES = [
     'NAT 1! Eustace sails backwards into the astral plane. <em>"my bad dude,"</em> echoes across dimensions.',
-    'NAT 1! You throw Eustace directly into a tree. He is at peace with this. The tree is not.',
+    'NAT 1! You throw Eustace directly into the harbor. He is at peace with this. The lobsters are not.',
     'NAT 1! Eustace slips out of your grip mid-windup and yeets himself west. -2 friendship.'
   ];
 
